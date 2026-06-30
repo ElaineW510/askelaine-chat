@@ -36,6 +36,18 @@ export default function Home() {
         body: JSON.stringify({ message: text, sessionId: sessionId.current }),
       });
 
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: "Request failed" }));
+        setMessages((prev) =>
+          prev.map((m, i) =>
+            i === prev.length - 1
+              ? { role: "assistant", text: `Error: ${err.error ?? "Unknown error"}` }
+              : m
+          )
+        );
+        return;
+      }
+
       if (!res.body) throw new Error("No response body");
 
       const reader = res.body.getReader();
