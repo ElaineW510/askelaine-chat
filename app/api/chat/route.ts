@@ -36,7 +36,7 @@ export async function POST(request: Request) {
   // Get a fresh (or cached) Entra ID bearer token
   const { token } = await getCredential().getToken(AZURE_SCOPE);
 
-  const apiVersion = process.env.AZURE_API_VERSION ?? "2025-01-01-preview";
+  const apiVersion = process.env.AZURE_API_VERSION ?? "v1";
   const endpoint = `${process.env.AZURE_AGENT_ENDPOINT}?api-version=${apiVersion}`;
 
   const agentRes = await fetch(endpoint, {
