@@ -4,7 +4,7 @@ export const runtime = "nodejs";
 export const maxDuration = 60;
 
 // Scope required for Azure AI Foundry / Cognitive Services
-const AZURE_SCOPE = "https://cognitiveservices.azure.com/.default";
+const AZURE_SCOPE = "https://ai.azure.com/.default";
 
 // Lazy singleton — created on first request so env vars are available
 let credential: ClientSecretCredential | null = null;
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
   // Get a fresh (or cached) Entra ID bearer token
   const { token } = await getCredential().getToken(AZURE_SCOPE);
 
-  const apiVersion = process.env.AZURE_API_VERSION ?? "1.0";
+  const apiVersion = process.env.AZURE_API_VERSION ?? "2024-12-01-preview";
   const endpoint = `${process.env.AZURE_AGENT_ENDPOINT}?api-version=${apiVersion}`;
 
   const agentRes = await fetch(endpoint, {
