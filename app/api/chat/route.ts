@@ -53,10 +53,7 @@ export async function POST(request: Request) {
 
     // Create a new session on the first message of a conversation
     if (!sessionId) {
-      const session = await client.beta.agents.createSession(
-        AGENT_NAME,
-        { type: "version_ref", agent_version: AGENT_VERSION }
-      );
+      const session = await client.beta.agents.createSession(AGENT_NAME);
       sessionId = session.agent_session_id;
     }
 
